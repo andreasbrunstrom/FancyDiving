@@ -1,0 +1,28 @@
+﻿<Application x:Class="AdminApp.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:adminApp="clr-namespace:AdminApp"
+             Startup="App_OnStartup">
+    <Application.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <adminApp:BoolToOppositeBoolConverter x:Key="OppositeConverter" />
+            <adminApp:BoolToVisibilityConverter x:Key="VisibilityConverter" />
+            <adminApp:BoolToVisibilityConverterInverted x:Key="invertedVisibilityConverter" />
+            <adminApp:NegativeToNullConverter x:Key="NegativeToNullConverter" />
+
+            
+
+            <adminApp:IndexToNumberConverter x:Key="IndexConverter" />
+
+
+        </ResourceDictionary>
+
+        
+        
+    </Application.Resources>
+</Application>

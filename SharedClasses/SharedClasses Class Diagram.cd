@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SharedClasses.Competition" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAKARAAAAAAAQBAAAIwgAEgCAEAgAAAoAAAQAEAgA=</HashCode>
+      <FileName>Competition.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharedClasses.Contestant">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAABAQIgAAAABAEAgAAAIAIAAAAAiA=</HashCode>
+      <FileName>Contestant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharedClasses.Database">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAFQBAAAABABAAAQAAAAgAAAAAAgAAAAI=</HashCode>
+      <FileName>Database.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharedClasses.Judge" BaseTypeListCollapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAgAAAAAAAARIAAAAgAAEBAAAAAAIAAAAAgA=</HashCode>
+      <FileName>Judge.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="SharedClasses.Jump">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIACAABAAAAAAQAAAAIBAAAAQAAAAAAAAAAAAAAAgg=</HashCode>
+      <FileName>Jump.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharedClasses.Score">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAIAAA=</HashCode>
+      <FileName>Score.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharedClasses.Tcp_Client">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACAAAAAAAAAgBACAAAAMAEAAAgACAAAAACAAAQ=</HashCode>
+      <FileName>Tcp_Client.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SharedClasses.Tcp_Server">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACQAAAgAAAAAAMIAAQAAADRAAAgAAQEAAAAgAAI=</HashCode>
+      <FileName>Tcp_Server.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

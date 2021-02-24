@@ -1,0 +1,72 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:model="clr-namespace:JudgeApp.Model" x:Class="JudgeApp.JudgeMainWindow"
+        mc:Ignorable="d"
+        Title="FancyDiving Domarklient v1.0" Height="350" Width="525" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+    <Window.DataContext>
+        <model:JudgeModel/>
+    </Window.DataContext>
+    <Grid Background="{StaticResource BackgroundBrush}">
+        <TabControl x:Name="tabControl" Margin="10" Padding="0" BorderThickness="1" BorderBrush="{StaticResource GreyBorderBrush}">
+            <TabItem x:Name="tab_judgeLogin" Header="Login">
+                <Grid Style="{StaticResource StyleGrid}">
+                    <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <TextBox x:Name="tb_adminIP" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" KeyDown="tb_adminIP_KeyDown" TextChanged="tb_adminIP_TextChanged"/>
+                        <Button x:Name="btn_connectToAdmin" Content="Anslut" HorizontalAlignment="Left" VerticalAlignment="Top" Width="49" Click="btn_connectToAdmin_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tab_judgeSelect" Header="Select">
+                <Grid Style="{StaticResource StyleGrid}">
+                    <StackPanel HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" Orientation="Horizontal">
+                        <ComboBox Height="23" ItemsSource="{Binding}" x:Name="cmb_selectJudge" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" SelectionChanged="cmb_selectJudge_SelectionChanged" DisplayMemberPath="displayNameNationality" SelectedValuePath="id"/>
+                        <Button x:Name="btn_selectJudge" Content="Välj" HorizontalAlignment="Left" VerticalAlignment="Top" Width="49" Click="btn_selectJudge_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tab_judgeScore" Header="Scoring">
+                <Grid Style="{StaticResource StyleGrid}">
+                    <Button x:Name="btn_scoring_ok" Content="Sänd" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Click="btn_scoring_ok_Click"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="tb_judge_info" Text="{Binding activeJudge.displayNameNationality, StringFormat=Domare: {0}}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+
+                        <TextBlock Text="{Binding currentJump.jumpCode, StringFormat=Hoppkod: {0}, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+                        <TextBlock Text="{Binding currentJump.height, StringFormat=Höjd: {0} m, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+                        <TextBlock Text="{Binding currentJump.difficulty, StringFormat=Svårighetsgrad: {0}, Mode=OneWay}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0,60,60,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="120">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="5" x:Name="btn_wholeUp" Content="5"  Width="50" Height="25" FontFamily="Marlett" FontSize="26.667" Click="btn_wholeUp_Click"/>
+                            <Button Margin="5" x:Name="btn_halfUp" Content="5" Width="50" Height="25" FontFamily="Marlett" FontSize="26.667" Click="btn_halfUp_Click"/>
+
+                        </StackPanel>
+                        <TextBox Margin="5" x:Name="tb_score" Height="25" VerticalAlignment="Center" HorizontalAlignment="Center" Width="110" Text="{Binding currentScore.points, StringFormat={}}" Cursor="None" IsEnabled="False" FontSize="20" TextAlignment="Center" FontFamily="Arial Black" FontStretch="UltraExpanded" FontWeight="ExtraBlack" TextWrapping="Wrap"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Margin="5" x:Name="btn_wholeDown" Content="6" Width="50" Height="25" FontFamily="Marlett" FontSize="26.667" Click="btn_wholeDown_Click"/>
+                            <Button Margin="5" x:Name="btn_halfDown" Content="6" Width="50" Height="25" FontFamily="Marlett" FontSize="26.667" Click="btn_halfDown_Click"/>
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tab_judgeWaiting" Header="Waiting">
+                <Grid Style="{StaticResource StyleGrid}">
+                    <TextBlock x:Name="tb_judge_info2" Text="{Binding activeJudge.displayNameNationality, StringFormat=Domare: {0}}" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Foreground="Black"/>
+                    <ProgressBar x:Name="pgb_judge_waiting" HorizontalAlignment="Center" Height="5" Margin="0" VerticalAlignment="Center" Width="200" IsIndeterminate="True" Foreground="{DynamicResource BlueBrush}" BorderBrush="{DynamicResource GreyBorderBrush}" Background="{DynamicResource GreyBorderBrush}"/>
+                </Grid>
+            </TabItem>
+            <TabItem x:Name="tab_judgeExit" Header="Exit">
+                <Grid Style="{StaticResource StyleGrid}">
+                    <Button x:Name="btn_exit" Content="Avsluta" Margin="0,0,10,10" Click="btn_exit_Click" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75"/>
+                    <Label x:Name="lb_thanks" Content="Tack för din medverkan!" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

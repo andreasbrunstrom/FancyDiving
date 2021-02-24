@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AdminApp.Admin">
+    <Position X="6.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAEgAgkECEAgAAQEAEAhAAABAA4DAAAAAAAEAAAwAAA=</HashCode>
+      <FileName>Model\Admin.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdminApp.Presenter.PresenterAdminMainWindow">
+    <Position X="10.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAgAgkECEAgAAAEAkAgAAABAAoDAAAAACAEAAAwAAA=</HashCode>
+      <FileName>Presenter\PresenterAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AdminApp.BoolToOppositeBoolConverter" Collapsed="true">
+    <Position X="8.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\AdminMainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdminApp.AdminMainWindow" Collapsed="true">
+    <Position X="2.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgCBAACEI0AEBACEIAAAEAAQBAgoAAAEQgIAGqAEgDg=</HashCode>
+      <FileName>View\AdminMainWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AdminApp.ContestantWindow" Collapsed="true">
+    <Position X="4" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\ContestantWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="AdminApp.IAdmin" Collapsed="true">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAgAgkECEAgAAAEAEAgAAABAAoDAAAAAAAEAAAwAAA=</HashCode>
+      <FileName>Model\IAdmin.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AdminApp.View.IAdminMainWindow" Collapsed="true">
+    <Position X="0.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAACEIsAEBAAAIAAAEAAAAAAIAAABAgAAGKEEgCA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Delegate Name="AdminApp.View.DelegateFetchCompetitions" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateFetchContestants" Collapsed="true">
+    <Position X="0.5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateFetchJudges" Collapsed="true">
+    <Position X="2.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateGetCompetition" Collapsed="true">
+    <Position X="2.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateNewCompetition" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateEditCompetition" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateDeleteCompetition" Collapsed="true">
+    <Position X="2.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateNewContestant" Collapsed="true">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateEditContestant" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateDeleteContestant" Collapsed="true">
+    <Position X="2.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateAddContestant" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateRemoveContestant" Collapsed="true">
+    <Position X="2.25" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateNewJudge" Collapsed="true">
+    <Position X="0.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateEditJudge" Collapsed="true">
+    <Position X="2.25" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateDeleteJudge" Collapsed="true">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateAddJudge" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateRemoveJudge" Collapsed="true">
+    <Position X="4" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateNewJump" Collapsed="true">
+    <Position X="2.25" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateEditJump" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="AdminApp.View.DelegateDeleteJump" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>View\IAdminMainWindow.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="10" />
+</ClassDiagram>

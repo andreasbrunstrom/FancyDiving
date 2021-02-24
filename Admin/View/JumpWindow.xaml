@@ -1,0 +1,36 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:adminApp="clr-namespace:AdminApp" x:Class="AdminApp.View.JumpWindow"
+        mc:Ignorable="d"
+        Title="Ändra hopp" Height="140" Width="210" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+
+        <Grid Margin="10,10,10,43">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" x:Name="label" Content="Höjd" HorizontalAlignment="Left" Margin="0,0,0,22" Height="26" VerticalAlignment="Bottom"/>
+            <ComboBox Grid.Column="0" x:Name="cmb_height" Margin="0,0,0,0" Height="22" Width="60" VerticalAlignment="Bottom">
+                <ComboBoxItem Content="1"/>
+                <ComboBoxItem Content="3"/>
+                <ComboBoxItem Content="5"/>
+                <ComboBoxItem Content="7"/>
+                <ComboBoxItem Content="10"/>
+            </ComboBox>
+            <Label Grid.Column="1" x:Name="label1" Content="Hoppkod" HorizontalAlignment="Left" Margin="10,0,0,22" Height="26" VerticalAlignment="Bottom" />
+            <ComboBox Grid.Column="1" IsEditable="True" x:Name="cmb_jumpcode" Margin="10,0,0,0" ItemsSource="{Binding}" Height="22" VerticalAlignment="Bottom">
+                <ComboBox.DataContext>
+                    <adminApp:Admin/>
+                </ComboBox.DataContext>
+            </ComboBox>
+        </Grid>
+
+        <Button Click="btn_saveJump_OnClick" x:Name="btn_saveJump" Content="Spara" Margin="0,0,10,10" HorizontalAlignment="Right" MinWidth="60" Height="23" VerticalAlignment="Bottom" Grid.Column="1"/>
+
+
+    </Grid>
+</Window>

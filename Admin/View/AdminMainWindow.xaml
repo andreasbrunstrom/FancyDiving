@@ -1,0 +1,577 @@
+﻿<Window x:Class="AdminApp.AdminMainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sharedClasses="clr-namespace:SharedClasses;assembly=SharedClasses"
+        mc:Ignorable="d"
+        Title="FancyDiving" Height="600" Width="1020" Loaded="Window_Loaded" Closing="Window_Closing">
+
+    <Window.Resources>
+        <!-- ############################################################### TÄVLINGSFLIKENS MALL #################################################################-->
+
+        <DataTemplate x:Key="TabItemContent" DataType="sharedClasses:Competition">
+            <Border BorderThickness="0,2,0,0">
+                <Border.Style>
+                    <Style>
+                        <Setter Property="Border.BorderBrush" Value="{StaticResource PurpleBrush}"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding started, Mode=OneWay}" Value="true">
+                                <Setter Property="Border.BorderBrush" Value="{StaticResource GreenBrush}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
+                <Border  BorderThickness="1,0,1,1" BorderBrush="{StaticResource GreyBorderBrush}">
+                    <Grid Style="{StaticResource StyleGrid}" SnapsToDevicePixels="True">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition Height="43"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="300" MaxWidth="500" MinWidth="200"/>
+                            <ColumnDefinition Width="10"></ColumnDefinition>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Background="Transparent" ShowsPreview="False" Width="10" Focusable="False"/>
+
+                        <Grid Grid.Row="0" Grid.Column="0" SnapsToDevicePixels="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="31" Height="55*"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition MinHeight="21" Height="45*"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Transparent" ShowsPreview="False" Height="10" Focusable="False"/>
+
+                                <!-- Tävlingsinfo -->
+                            <GroupBox IsEnabled="{Binding started, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Grid.Column="0" Grid.Row="0" Header="Tävling" HorizontalAlignment="Stretch" Margin="10,10,0,0">
+                                
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical" Margin="5,0,5,5">
+                                            <Label Content="Namn:" />
+                                            <TextBox Text="{Binding name, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" x:Name="tb_competitionName" Height="24" KeyboardNavigation.TabIndex="0"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical">
+                                                    <Label Content="Datum:" />
+                                                    <DatePicker SelectedDate="{Binding date, Mode=TwoWay}" Height="23" x:Name="date_competition" HorizontalAlignment="Left" KeyboardNavigation.TabIndex="1"/>
+                                                </StackPanel>
+                                                <StackPanel IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Orientation="Vertical" Margin="20,0,0,0">
+                                                    <Label Content="Åldersklass"/>
+                                                    <ComboBox Width="100" SelectedValue="{Binding Path=ageGroup, Mode=TwoWay}" SelectedValuePath="Content" Height="24" KeyboardNavigation.TabIndex="2">
+                                                        <ComboBoxItem>Internationell</ComboBoxItem>
+                                                        <ComboBoxItem>A-klass</ComboBoxItem>
+                                                        <ComboBoxItem>B-klass</ComboBoxItem>
+                                                        <ComboBoxItem>C-klass</ComboBoxItem>
+                                                        <ComboBoxItem>D-klass</ComboBoxItem>
+                                                        <ComboBoxItem>E-klass</ComboBoxItem>
+                                                    </ComboBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            
+                                            
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Orientation="Vertical">
+                                                    <Label Content="Kön:" />
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <RadioButton Margin="0,0,10,0" IsChecked="{Binding gender, Mode=TwoWay}" x:Name="rb_gender_men" Content="Män" GroupName="radioGender" KeyboardNavigation.TabIndex="3"/>
+                                                        <RadioButton IsChecked="{Binding gender, Converter={StaticResource OppositeConverter}, Mode=TwoWay}" x:Name="rb_gender_women" Content="Kvinnor" GroupName="radioGender" KeyboardNavigation.TabIndex="4"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Orientation="Vertical" Margin="20,0,0,0">
+                                                    <Label Content=" " />
+                                                    <CheckBox IsChecked="{Binding syncro}" x:Name="cb_syncro" Content="Syncro"/>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <Label Content="Rundor:" />
+                                            <StackPanel IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Orientation="Horizontal">
+                                                <Button Name="btn_decreaseRounds" Click="btn_decreaseRounds_OnClick" VerticalContentAlignment="Center" Padding="0">-</Button>
+                                                <TextBox Text="{Binding rounds, Mode=TwoWay}" IsReadOnly="True" Name="tb_rounds" Width="30" BorderThickness="0,1,0,1" BorderBrush="{StaticResource ButtonBorderBrush}" HorizontalContentAlignment="Center"/>
+                                                <Button Name="btn_increaseRounds" Click="btn_increaseRounds_OnClick" VerticalContentAlignment="Center" Padding="0">+</Button>
+                                            </StackPanel>
+                                            
+                                        </StackPanel>
+                                    </Grid>
+                                </ScrollViewer>
+                                
+                            </GroupBox>
+                            <!-- Domare -->
+                            <GroupBox Style="{StaticResource HideGroupWhenDisabled}" IsEnabled="{Binding started, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Grid.Column="0" Grid.Row="2" Header="Domare" Margin="10,0,0,0" HorizontalAlignment="Stretch">
+                                <Grid>
+                                    <ListView SelectedItem="{Binding selectedJudge, Mode=TwoWay}" Name="c_lv_judges" ItemsSource="{Binding judges}" Margin="0,0,0,34">
+                                        <ListView.View>
+                                            <GridView>
+                                                <!--<GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" />-->
+                                                <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="165"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding nationality}" Header="Nationalitet" Width="80"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <Button IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Margin="5,0,0,0" x:Name="btn_addJudge" Click="btn_addJudge_Click" Content="Lägg till"></Button>
+                                        <Button IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Margin="5,0,0,0" x:Name="btn_removeJudge" Click="btn_removeJudge_Click" Content="Ta bort"></Button>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+
+                            <!-- Nuvarande hopp -->
+
+                            <GroupBox Style="{StaticResource HideGroupWhenDisabled}" IsEnabled="{Binding started, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Header="Nuvarande hopp" Margin="10,0,0,0" HorizontalAlignment="Stretch">
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                    <Grid>
+                                        <StackPanel Orientation="Vertical" Margin="10">
+                                            <TextBlock>
+                                            <TextBlock Text="Namn:" Width="70"/>
+                                            <TextBlock Text="{Binding Path=currentContestant.name, Mode=OneWay}"/>
+                                        </TextBlock>
+                                            <TextBlock>
+                                            <TextBlock Text="Land:" Width="70"/>
+                                            <TextBlock Text="{Binding Path=currentContestant.nationality, Mode=OneWay}"/>
+                                        </TextBlock>
+                                            <TextBlock>
+                                            <TextBlock Text="Hopp:" Width="70"/>
+                                            <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} av {1}">
+                                                            <Binding Path="currentRound" Converter="{StaticResource IndexConverter}" />
+                                                            <Binding Path="rounds" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                            </TextBlock>
+                                        </TextBlock>
+                                            <TextBlock>
+                                            <TextBlock Text="Hoppkod:" Width="70"/>
+                                            <TextBlock Text="{Binding Path=currentJump.jumpCode, Mode=OneWay}"></TextBlock>
+                                        </TextBlock>
+                                            <TextBlock>
+                                            <TextBlock Text="Höjd:" Width="70"/>
+                                            <TextBlock Text="{Binding Path=currentJump.height, StringFormat={}{0}m, Mode=OneWay}"></TextBlock>
+                                        </TextBlock>
+
+
+                                            <Border Margin="0,10,0,30" BorderThickness="1" BorderBrush="{StaticResource GreyBorderBrush}">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition/>
+                                                        <RowDefinition/>
+                                                    </Grid.RowDefinitions>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition/>
+                                                        <ColumnDefinition Width="50"/>
+                                                    </Grid.ColumnDefinitions>
+
+                                                    <ListView Style="{StaticResource JudgeListview}" Grid.Row="0" Grid.Column="0" ItemsSource="{Binding judges}" BorderThickness="0" Margin="0" Background="Transparent">
+                                                        <ListView.Resources>
+                                                            <Style TargetType="GridViewColumnHeader">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </Style>
+                                                        </ListView.Resources>
+                                                        <ListView.ItemContainerStyle>
+                                                            <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="{x:Type ListViewItem}">
+                                                                <Setter Property="Focusable" Value="False"></Setter>
+                                                                <Setter Property="Foreground" Value="Black"></Setter>
+                                                            </Style>
+                                                        </ListView.ItemContainerStyle>
+                                                        <ListView.View>
+                                                            <GridView>
+                                                                <GridViewColumn DisplayMemberBinding="{Binding judgeSeat, Converter={StaticResource IndexConverter}}" Header="plats"/>
+                                                                <GridViewColumn DisplayMemberBinding="{Binding name}" Header="namn" />
+                                                                <GridViewColumn Width="30">
+                                                                    <GridViewColumn.CellTemplate>
+                                                                        <DataTemplate>
+                                                                            <Grid>
+                                                                                <Image Visibility="{Binding occupied, Converter={StaticResource VisibilityConverter}}" Height="16" Width="16" Source="../VSO_Link_blue_16x.png"></Image>
+                                                                                <Image Visibility="{Binding occupied, Converter={StaticResource invertedVisibilityConverter}}" Height="16" Width="16" Source="../Unlink_16x.png"></Image>
+                                                                            </Grid>
+                                                                        </DataTemplate>
+                                                                    </GridViewColumn.CellTemplate>
+                                                                </GridViewColumn>
+                                                            </GridView>
+                                                        </ListView.View>
+                                                    </ListView>
+
+                                                    <Border Grid.Row="1" Grid.Column="0" Padding="5,2,5,2"  BorderThickness="0,1,0,0" BorderBrush="{StaticResource GreyBorderBrush}">
+                                                        <TextBlock Margin="6,0,6,0" Text="Total"></TextBlock>
+                                                    </Border>
+
+                                                    <ListView Style="{StaticResource JudgeListview}" Grid.Row="0" Grid.Column="1" ItemsSource="{Binding currentJump.scores}" BorderThickness="0" Width="50" Margin="0" Background="Transparent">
+                                                        <ListView.Resources>
+                                                            <Style TargetType="GridViewColumnHeader">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </Style>
+                                                            <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                                                <Setter Property="Foreground" Value="Black"></Setter>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding ignored}" Value="True">
+                                                                        <Setter Property="Foreground" Value="Red" />
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </ListView.Resources>
+                                                        <ListView.ItemContainerStyle>
+                                                            <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="{x:Type ListViewItem}">
+                                                                <Setter Property="Focusable" Value="False"></Setter>
+                                                                <Setter Property="HorizontalContentAlignment" Value="Stretch"></Setter>
+                                                            </Style>
+                                                        </ListView.ItemContainerStyle>
+                                                        <ListView.View>
+                                                            <GridView>
+                                                                <GridViewColumn DisplayMemberBinding="{Binding points, Converter={StaticResource NegativeToNullConverter}}" Width="40" Header="plats"/>
+                                                            </GridView>
+                                                        </ListView.View>
+                                                    </ListView>
+                                                    <Border VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Padding="5,2,5,2" BorderThickness="0,1,0,0" BorderBrush="{StaticResource GreyBorderBrush}">
+                                                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Left" Margin="6,0,6,0" Text="{Binding currentJump.jumpScore}"></TextBlock>
+                                                    </Border>
+
+                                                </Grid>
+
+                                            </Border>
+                                        </StackPanel>
+
+                                        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="10">
+                                            <CheckBox Click="cb_autoGotoNext_OnClick" IsChecked="False" HorizontalAlignment="Left" VerticalAlignment="Center" x:Name="cb_nextJumpAuto" Content="Nästa automatiskt"></CheckBox>
+                                            <Button IsEnabled="{Binding ElementName=cb_nextJumpAuto, Path=IsChecked, Converter={StaticResource OppositeConverter}}" HorizontalAlignment="Right" x:Name="btn_nextJump" Click="btn_nextJump_Click">
+                                                <DockPanel>
+                                                    <Image Source="../Forward.ico"></Image>
+                                                    <TextBlock Text="Nästa hopp"></TextBlock>
+                                                </DockPanel>
+                                            </Button>
+                                        </DockPanel>
+                                    </Grid>
+                                </ScrollViewer>
+                            </GroupBox>
+                        </Grid>
+
+
+                        <Grid Grid.Row="0" Grid.Column="2" SnapsToDevicePixels="True">
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="31"></RowDefinition>
+                                <RowDefinition Height="10"></RowDefinition>
+                                <RowDefinition MinHeight="21"></RowDefinition>
+                            </Grid.RowDefinitions>
+
+                            <GridSplitter ResizeBehavior="PreviousAndNext" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="Transparent" ShowsPreview="False" Height="10" Focusable="False"/>
+
+                            <!-- Deltagare/slutresultat -->
+                            <GroupBox IsEnabled="{Binding started, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Margin="0,10,10,0">
+                                <GroupBox.Style>
+                                    <Style TargetType="GroupBox" BasedOn="{StaticResource HideGroupWhenDisabled}">
+                                        <Setter Property="Header" Value="Deltagare"></Setter>
+                                        
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding finished}" Value="true">
+                                                <Setter Property="Header" Value="Slutresultat"></Setter>
+                                                <Setter Property="BorderBrush" Value="{StaticResource BlueBrush}"></Setter>
+                                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GroupBox.Style>
+                                <Grid>
+                                    <ListView SelectedItem="{Binding selectedContestant, Mode=TwoWay}" VerticalAlignment="Stretch" ItemsSource="{Binding contestants}" Margin="0,0,0,34">
+                                        <ListView.View>
+                                            <GridView>
+                                                <!--<GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50" />-->
+                                                <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="250"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding genderString}" Header="Kön" Width="50"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding club}" Header="Klubb"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding nationality}" Header="Nationalitet" Width="100"/>
+
+                                                <GridViewColumn DisplayMemberBinding="{Binding totalScore}" Header="Totalpoäng"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <Button IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Margin="5,0,0,0" x:Name="btn_addContestant" Click="btn_addContestant_Click" Content="Lägg till"></Button>
+                                        <Button IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Margin="5,0,0,0" x:Name="btn_removeContestant" Click="btn_removeContestant_Click" Content="Ta bort"></Button>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+
+                            <!-- Deltagares hopp -->
+                            <GroupBox Style="{StaticResource HideGroupWhenDisabled}" IsEnabled="{Binding started, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Header="Hopp" Margin="0,0,10,0">
+                                <Grid>
+                                    <ListView SelectedItem="{Binding selectedJump, Mode=TwoWay}"  VerticalAlignment="Stretch" ItemsSource="{Binding selectedContestant.jumps, Mode=TwoWay}" AlternationCount="{Binding selectedContestant.jumps.Count}" Margin="0,0,0,34"  MouseDoubleClick="btn_editJump_Click">
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="#" Width="30" DisplayMemberBinding="{Binding (ItemsControl.AlternationIndex), RelativeSource={RelativeSource AncestorType=ListViewItem}, Converter={StaticResource IndexConverter}}" />
+                                                <!--<GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50" />-->
+                                                <GridViewColumn DisplayMemberBinding="{Binding height}" Header="Höjd" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding jumpCode}" Header="Hoppkod" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding difficulty}" Header="Svårighetsgrad" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding jumpScore}" Header="Poäng" Width="100"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                        <Button IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" x:Name="btn_editJump" Click="btn_editJump_Click" Content="Ändra"></Button>
+                                    </StackPanel>
+                                </Grid>
+                            </GroupBox>
+                            <!-- Nuvarande ställning -->
+
+                            <GroupBox Style="{StaticResource HideGroupWhenDisabled}" IsEnabled="{Binding started, Mode=OneWay}" Grid.Row="0" Grid.Column="0" Header="Nuvarande ställning" Margin="0,10,10,0">
+                                <Grid>
+
+                                    <ListView Name="lv_highscore" ItemsSource="{Binding highscore}" Margin="0">
+                                        <ListView.View>
+
+                                            <GridView>
+                                                <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="300"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding totalScore}" Header="Totalpoäng"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
+                            </GroupBox>
+
+                            <!-- kommande hopp -->
+                            <GroupBox Style="{StaticResource HideGroupWhenDisabled}" IsEnabled="{Binding started, Mode=OneWay}" Grid.Row="2" Grid.Column="0" Header="Kommande hopp" Margin="0,0,10,0">
+                                <Grid>
+                                    <ListView SelectionChanged="lv_commingJumps_SelectionChanged" x:Name="lv_commingJumps" SelectedItem="{Binding currentJump, Mode=OneWay}" ItemsSource="{Binding jumpsInCurrentCompetition}" Margin="0">
+                                        <ListView.ItemContainerStyle>
+                                            <Style BasedOn="{StaticResource {x:Type ListViewItem}}" TargetType="{x:Type ListViewItem}">
+                                                <Setter Property="Focusable" Value="False"></Setter>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+
+                                                <!--<GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50" />-->
+                                                <GridViewColumn DisplayMemberBinding="{Binding height}" Header="Höjd" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding jumpCode}" Header="Hoppkod" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding difficulty}" Header="Svårighetsgrad" Width="100"/>
+                                                <GridViewColumn DisplayMemberBinding="{Binding jumpScore}" Header="Poäng" Width="50"/>
+
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </Grid>
+                            </GroupBox>
+                        </Grid>
+                        
+                        <!-- knappar -->
+                        <StackPanel Grid.Column="2"  Grid.Row="1" IsEnabled="{Binding finished, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Margin="10" >
+                            <Button Style="{StaticResource HideButtonWhenDisabled}" IsEnabled="{Binding started, Mode=OneWay}" Click="btn_StopCompetition_Click" x:Name="btn_StopCompetition"  HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Center">
+                            <DockPanel>
+                                <Image Source="../Stop.ico"></Image>
+                                <TextBlock Text="Avsluta tävling"></TextBlock>
+                            </DockPanel>
+                        </Button>
+                        <Button Style="{StaticResource HideButtonWhenDisabled}" IsEnabled="{Binding started, Converter={StaticResource OppositeConverter}, Mode=OneWay}" Click="btn_StartCompetition_Click" x:Name="btn_StartCompetition" HorizontalAlignment="Right" VerticalAlignment="Bottom" VerticalContentAlignment="Center">
+                            <DockPanel>
+                                <Image Source="../Run.ico"></Image>
+                                <TextBlock Text="Starta tävling"></TextBlock>
+                            </DockPanel>
+                        </Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Border>
+        </DataTemplate>
+
+
+        <!-- ############################################################### /TÄVLINGSFLIKENS MALL #################################################################-->
+
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+
+        <TabControl Visibility="Collapsed" x:Name="tabControlDynamic" ItemsSource="{Binding}" Margin="10" Padding="0">
+            <TabControl.Resources>
+                <DataTemplate x:Key="TabHeader" DataType="TabItem">
+                    <DockPanel>
+                        <Button Style="{StaticResource CloseTabStyle}" x:Name="btnDelete" Click="closeTab" DockPanel.Dock="Right" CommandParameter="{Binding Name, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}"/>
+                        <TextBlock Text="{Binding Header, RelativeSource={RelativeSource AncestorType={x:Type TabItem}}}" />
+                    </DockPanel>
+                </DataTemplate>
+            </TabControl.Resources>
+            <TabControl.Template>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <Grid ClipToBounds="True" KeyboardNavigation.TabNavigation="Local" SnapsToDevicePixels="True">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Name="ColumnDefinition0" Width="*"/>
+                            <ColumnDefinition Name="ColumnDefinition2" Width="0"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Name="RowDefinition0" Height="Auto"/>
+                            <RowDefinition Name="RowDefinition1" Height="*"/>
+                        </Grid.RowDefinitions>
+                        <DockPanel
+                  Name="HeaderPanel"
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  Margin="2,2,2,0"
+                  Panel.ZIndex="1"
+                  IsItemsHost="True"
+                  KeyboardNavigation.TabIndex="1"/>
+                        <Border
+                  Name="ContentPanel"
+                  Grid.Column="0"
+                  Grid.Row="1"
+                  Background="{TemplateBinding Panel.Background}"
+                  BorderBrush="{TemplateBinding Border.BorderBrush}"
+                  BorderThickness="{TemplateBinding Border.BorderThickness}"
+                  KeyboardNavigation.DirectionalNavigation="Contained"
+                  KeyboardNavigation.TabIndex="2"
+                  KeyboardNavigation.TabNavigation="Local">
+                            <ContentPresenter
+                     Name="PART_SelectedContentHost"
+                     Margin="{TemplateBinding Control.Padding}"
+                     Content="{TemplateBinding TabControl.SelectedContent}"
+                     ContentSource="SelectedContent"
+                     ContentStringFormat="{TemplateBinding TabControl.SelectedContentStringFormat}"
+                     ContentTemplate="{TemplateBinding TabControl.SelectedContentTemplate}"
+                     SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </TabControl.Template>
+        </TabControl>
+
+        <TabControl Visibility="Visible" Name="tabControl" Margin="10" Padding="0">
+            <!-- ############################################################### HEM #################################################################-->
+            <TabItem Header="Hem" x:Name="tab_home" HorizontalAlignment="Left">
+                <Border BorderThickness="0,2,0,0" BorderBrush="{StaticResource BlueBrush}">
+                    <Border  BorderThickness="1,0,1,1" BorderBrush="{StaticResource GreyBorderBrush}">
+                        <Grid Style="{StaticResource StyleGrid}">
+                            <Label x:Name="lbl_welcome" Content="Välkommen" HorizontalAlignment="Center" Height="64" Margin="0,100,0,0" VerticalAlignment="Top" IsEnabled="False" FontSize="28" FontWeight="Bold"/>
+                            <StackPanel Margin="10,0,10,10" VerticalAlignment="Bottom">
+                                <Button x:Name="btn_newCompetition_copy" Content="Skapa ny tävling" Margin="5,0,0,0" Click="btn_newCompetition_Click" HorizontalAlignment="Right"/>
+                            </StackPanel>
+
+                        </Grid>
+                    </Border>
+                </Border>
+            </TabItem>
+            <!-- ############################################################### TÄVLINGAR #################################################################-->
+            <TabItem x:Name="tab_competitions" Header="Tävlingar" HorizontalAlignment="Left">
+                <Border BorderThickness="0,2,0,0" BorderBrush="{StaticResource BlueBrush}">
+                    <Border  BorderThickness="1,0,1,1" BorderBrush="{StaticResource GreyBorderBrush}">
+                        <Grid Style="{StaticResource StyleGrid}">
+                            <ListView ItemsSource="{Binding}" x:Name="lv_competitions" Padding="0" Margin="10,10,10,43" MouseDoubleClick="btn_editCompetition_Click" KeyDown="lv_editCompetitions_KeyDown">
+                                <ListView.Resources>
+                                    <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource {x:Type ListViewItem}}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding finished}" Value="True">
+                                                <Setter Property="Foreground" Value="{StaticResource BlueBrush}" />
+                                            </DataTrigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Foreground" Value="White"></Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListView.Resources>
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50" />
+                                        <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="250"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding genderString}" Header="Kön" Width="80"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding syncro}" Header="Syncro" Width="60"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding height}" Header="Höjd" Width="50"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding date, StringFormat='yyyy-MM-dd'}" Header="Datum" Width="90"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding ageGroup}" Header="Tävlingsklass" Width="120"/>
+
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            <StackPanel Margin="10,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button x:Name="btn_deleteCompetition" Content="Ta bort tävling" Margin="5,0,0,0"  HorizontalAlignment="Right" Click="btn_deleteCompetition_Click"/>
+                                <Button x:Name="btn_editCompetition" Content="Redigera tävling" Margin="5,0,0,0"  HorizontalAlignment="Right" Click="btn_editCompetition_Click"/>
+                                <Button x:Name="btn_newCompetition" Content="Skapa ny tävling" Margin="5,0,0,0"  HorizontalAlignment="Right" Click="btn_newCompetition_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Border>
+            </TabItem>
+            <!-- ############################################################### DELTAGARE #################################################################-->
+            <TabItem x:Name="tab_contestants" Header="Tävlande" HorizontalAlignment="Left">
+                <Border BorderThickness="0,2,0,0" BorderBrush="{StaticResource BlueBrush}">
+                    <Border  BorderThickness="1,0,1,1" BorderBrush="{StaticResource GreyBorderBrush}">
+                        <Grid Style="{StaticResource StyleGrid}">
+                            <ListView ItemsSource="{Binding}" x:Name="lv_contestants" Padding="0" Margin="10,10,10,43" MouseDoubleClick="btn_edit_contestant_Click" KeyDown="lv_contestants_KeyDown">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="220"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding genderString}" Header="Kön" Width="50"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding club}" Header="Klubb" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding nationality}" Header="Nationalitet" Width="100"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding birthdate, StringFormat='yyyy-MM-dd'}" Header="Födelsedatum" Width="100"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            
+                            <!--<DataGrid CanUserAddRows="False" AutoGenerateColumns="False" x:Name="dg_contestants" Margin="10,10,10,43" CanUserResizeRows="False" SelectionUnit="FullRow" SelectionMode="Single" RowHeight="25">
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn Binding="{Binding id}" Header="Id" Width="50"/>
+                                    <DataGridTextColumn Binding="{Binding name}" Header="Namn" Width="220"/>
+                                    <DataGridTextColumn Binding="{Binding genderString}" Header="Kön" Width="50"/>
+                                    <DataGridTextColumn Binding="{Binding club}" Header="Klubb" Width="100"/>
+                                    <DataGridTextColumn Binding="{Binding nationality}" Header="Nationalitet" Width="100"/>
+
+                                    <DataGridTemplateColumn Header="Födelsedatum">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <DatePicker SelectedDate="{Binding birthdate}" BorderThickness="0" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+
+                                </DataGrid.Columns>
+                            </DataGrid>-->
+
+                            <StackPanel Margin="10,0,10,10"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button x:Name="btn_delete_contestant" Content="Ta bort tävlande" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_deleteContestant_Click"/>
+                                <Button x:Name="btn_edit_contestant" Content="Redigera tävlande" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_edit_contestant_Click" />
+                                <Button x:Name="btn_new_contestant" Content="Skapa ny tävlande" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_newContestant_Click"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Border>
+            </TabItem>
+            <!-- ############################################################### DOMARE #################################################################-->
+            <TabItem x:Name="tab_judges" Header="Domare" HorizontalAlignment="Left">
+                <Border BorderThickness="0,2,0,0" BorderBrush="{StaticResource BlueBrush}">
+                    <Border  BorderThickness="1,0,1,1" BorderBrush="{StaticResource GreyBorderBrush}">
+                        <Grid Style="{StaticResource StyleGrid}">
+
+                            <ListView ItemsSource="{Binding}" x:Name="lv_judges" Padding="0" Margin="10,10,10,43" MouseDoubleClick="btn_editJudge_Click" KeyDown="lv_judges_KeyDown">
+                                <ListView.View>
+                                    <GridView>
+
+                                        <GridViewColumn DisplayMemberBinding="{Binding id}" Header="Id" Width="50"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding name}" Header="Namn" Width="220"/>
+                                        <GridViewColumn DisplayMemberBinding="{Binding nationality}" Header="Nationalitet" Width="100"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                            
+                            <!--<DataGrid CanUserAddRows="False" AutoGenerateColumns="False" x:Name="dg_judges" Margin="10,10,10,43" CanUserResizeRows="False" SelectionMode="Single" RowHeight="25">
+                                <DataGrid.Columns>
+
+                                    <DataGridTextColumn Binding="{Binding id}" Header="Id" Width="50"/>
+                                    <DataGridTextColumn Binding="{Binding name}" Header="Namn" Width="220"/>
+                                    <DataGridTextColumn Binding="{Binding nationality}" Header="Nationalitet" Width="100"/>
+
+                                </DataGrid.Columns>
+                            </DataGrid>-->
+
+                            <StackPanel Margin="10,0,10,10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal">
+                                <Button x:Name="btn_delete_judge" Content="Ta bort domare" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_deleteJudge_Click"/>
+                                <Button x:Name="btn_edit_judge" Content="Redigera domare" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_editJudge_Click" />
+                                <Button x:Name="btn_new_judge" Content="Skapa ny domare" Margin="5,0,0,0" HorizontalAlignment="Right" Click="btn_newJudge_Click" />
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Border>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

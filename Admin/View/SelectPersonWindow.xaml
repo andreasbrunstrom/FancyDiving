@@ -1,0 +1,31 @@
+﻿<Window x:Class="AdminApp.View.SelectPersonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="SelectPersonWindow" Height="300" Width="300" ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="textBox" Height="23" Margin="10,10,10,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"/>
+        <ListView x:Name="listBox" Margin="10,38,10,43">
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </Style>
+            </ListView.Resources>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding name}"></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding birthdate, StringFormat='yyyy'}"></GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding nationality}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+            <Button MinWidth="60" x:Name="btn_cancel" Content="Avbryt" Height="23" Margin="0" Click="Btn_cancel_OnClick" />
+            <Button MinWidth="60" x:Name="btn_addSelectedJudge" Height="23" Content="Lägg till" Margin="10,0,0,0" Click="btn_addSelectedJudge_Click"/>
+        </StackPanel>
+        
+
+    </Grid>
+</Window>
